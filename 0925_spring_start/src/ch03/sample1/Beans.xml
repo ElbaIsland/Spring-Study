@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+	<!-- ref : 참조, 즉 참조하고 있는 클래스를 의미한다! -->
+	<!-- 아래와 같이 하나의 클래스를 가지고 여러개 bean 만드는것도 ok -->
+	<bean id="sensor1" class="ch03.sample1.Sensor">
+		<property name="additionalInfo">
+			<props>
+				<prop key="threshold">1500</prop>
+				<prop key="retry">3</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="sensor2" class="ch03.sample1.Sensor">
+		<property name="agentCodes">
+			<set>
+				<value>200</value>
+				<value>300</value>
+			</set>
+		</property>
+	<property name="additionalInfo">
+			<value>
+			threshold = 3000
+			retry = 5
+			</value>
+		</property>
+	</bean>
+	
+	
+	<bean id="moniter" class="ch03.sample1.Moniter">
+		<property name="sensorMap">
+			<map>
+				<entry>
+					<key>
+					<value>frontDoor</value>	<!-- key가 없는 상태에서는 이렇게 만들어야 하나벼..아래처럼하니 key설정오류 발생 -->
+					</key>
+					<ref bean="sensor1"/>
+				</entry>
+				<entry key="backDoor" value-ref="sensor2"/>
+			</map>
+		</property>
+		<property name="config">
+			<map>
+				<entry key="interval" value="1000"/>
+				<entry key="period" value="2000"/>
+			</map>
+		</property>
+	</bean>
+	
+</beans>

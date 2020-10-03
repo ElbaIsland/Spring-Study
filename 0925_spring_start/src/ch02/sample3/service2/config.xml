@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+	<!-- ref : 참조, 즉 참조하고 있는 클래스를 의미한다! -->
+	
+	<bean id="user1" class="ch02.sample3.service2.User">
+		<!-- 생성자 value가 두개 => 생성자에 파라미터를 두개 받는다는것 확인가능 -->
+		<!-- constructor 인젝션이 두개!  ㅂ -->
+		<constructor-arg value="haram511"/>
+		<constructor-arg value="1234"/>
+	</bean>
+	
+	<bean id="user2" class="ch02.sample3.service2.User">
+		<constructor-arg value="madvirus"/>
+		<constructor-arg value="qwer"/>
+	</bean>
+	
+	<bean id="userRepository" class="ch02.sample3.service2.UserRepository">
+		<property name="users">	<!-- 1) setUsers작동  -->
+			<list>
+				<ref bean="user1"/>	<!-- 2) user1과 user2를 -->
+				<ref bean="user2"/>	<!-- 3) userMap에 put! -->
+			</list>
+		</property>
+	</bean> 
+	
+	<bean id="falilLogger" class="ch02.sample3.service2.AuthFalilLogger">
+		<property name="threshold" value="2"/><!-- 일단 임의값으로 테스트, 로그인시도 허용값 -->
+	</bean>
+	
+	<bean id="authenticationService" class="ch02.sample3.service2.AuthenticationService">
+		<!-- 여기에 세터 인젝션이 두개! -->
+		<property name="userRepository">
+			<ref bean="userRepository"/>
+		</property>
+		<property name="failLogger" ref="falilLogger"/><!-- 이렇게도 가능! -->
+	</bean>
+	
+	
+	<!-- 여기서부턴 다음날 -->
+	<bean id="passwordchangeservice" class="ch02.sample3.service2.PasswordChangeService">
+		<constructor-arg ref="userRepository"/>
+	</bean>
+</beans>

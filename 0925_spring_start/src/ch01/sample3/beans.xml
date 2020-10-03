@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+    <bean id="messageBean" class="ch01.sample2.MessageBeanKR" />
+    <!-- 각각의 id가 각각 class 주소를 가지고 있다. -->
+    <!-- 상황따라 이부분을 kr, en으로 바꾸면 sample2보다 유지보수가 더 쉽겠지?? -->
+     <bean id="messageBean2" class="ch01.sample2.MessageBeanEN" />
+</beans>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+    <bean id="messageBean" class="ch02.sample1.MessageBeanImpl" >
+    	<constructor-arg value="Haram Park">
+    	<!-- constructor(생성자)의 파라미터(value)로 Spring을 보낼거라는 뜻 -->
+    	</constructor-arg>
+    	
+    	<property name="greeting" value="Hello~~~">
+    	<!-- property name = 세터 네임 -->
+    	</property>
+    	
+    	<property name="outputter">		<!-- =setOutputter & 여기다 ref="outputter" 넣어도 ok-->
+    		<ref local="outputter"/>	<!-- 이 local이 아래 bean id와 연동 -->
+    	</property>
+    </bean>
+    
+    <bean id="outputter" class="ch02.sample1.FileOutputter">
+    	<property name="filePath" value="ThisIsMessage.txt">
+    	<!-- value 파일이 없을경우, 자동으로 생성시켜준다. -->
+    	</property>
+    </bean>
+    
+</beans>

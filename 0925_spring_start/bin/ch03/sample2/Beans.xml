@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	
+	
+	<bean id="factory" class="ch03.sample2.ErpClientFactory"
+	factory-method="instance"><!-- 이 인스턴스가 위 클래스의 메소드인 인스턴스이다. -->
+		<constructor-arg>
+			<props>
+				<prop key="server">10.50.0.101</prop>
+			</props>
+		</constructor-arg>
+	</bean>
+	
+</beans>
